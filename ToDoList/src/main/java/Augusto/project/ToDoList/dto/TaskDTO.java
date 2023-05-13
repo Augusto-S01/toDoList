@@ -1,56 +1,32 @@
-package Augusto.project.ToDoList.model;
+package Augusto.project.ToDoList.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 import Augusto.project.ToDoList.enums.Status;
+import Augusto.project.ToDoList.model.Task;
 
 
-@Entity
-public class Task {
-	
-	@Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+public class TaskDTO {
+		
 	private Long id;
-	@Nonnull
 	private String description;
-	@Nonnull
 	private LocalDateTime deadlineDate;
 	private LocalDateTime finishedDate;
-	@Nonnull
 	private LocalDateTime createDate;
-	@Nonnull
 	private Status status;
 //	private List<SubTask> subTasks;
 	
-	public Task() {}
 	
-	public Task(String description,LocalDateTime deadlineDate) {
-		this.description = description;
-		this.deadlineDate = deadlineDate;
+	
+	public TaskDTO(Task task) {
+		this.id = task.getId();
+		this.description = task.getDescription();
+		this.deadlineDate = task.getDeadlineDate();
+		this.createDate = task.getCreateDate();
+		this.status = task.getStatus();
 	}
 	
-	
-	
-	public Task(Long id, String description, LocalDateTime deadlineDate, LocalDateTime createDate, Status status) {
-		this.id = id;
-		this.description = description;
-		this.deadlineDate = deadlineDate;
-		this.createDate = createDate;
-		this.status = status;
-	}
 
-	@PrePersist
-	protected void onCreate() {
-		status = Status.TO_DO;
-		createDate = LocalDateTime.now();
-	}
-	
 	
 	public Long getId() {
 		return id;
@@ -88,19 +64,6 @@ public class Task {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+		
 
-
-//	public List<SubTask> getSubTasks() {
-//		return subTasks;
-//	}
-//
-//
-//	public void setSubTasks(List<SubTask> subTasks) {
-//		this.subTasks = subTasks;
-//	}
-	
-	
-	
-	
-	
 }
