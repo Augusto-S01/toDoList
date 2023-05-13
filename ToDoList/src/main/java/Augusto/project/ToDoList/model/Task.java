@@ -6,10 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import Augusto.project.ToDoList.enums.status;
+import Augusto.project.ToDoList.enums.Status;
 
 @Entity
-public class task {
+public class Task {
 	
 	@Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
@@ -17,7 +17,7 @@ public class task {
 	private LocalDateTime deadlineDate;
 	private LocalDateTime finishedDate;
 	private LocalDateTime createDate;
-	private status status;
+	private Status status;
 	
 	
 	
@@ -51,10 +51,10 @@ public class task {
 	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
-	public status getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	

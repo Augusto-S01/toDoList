@@ -1,6 +1,6 @@
 package Augusto.project.ToDoList.enums;
 
-public enum status {
+public enum Status {
 	TO_DO(),
 	IN_PROGRESS(),
 	DONE()
