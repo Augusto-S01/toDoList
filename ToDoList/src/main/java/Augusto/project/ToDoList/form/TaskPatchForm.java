@@ -1,59 +1,29 @@
-package Augusto.project.ToDoList.model;
+package Augusto.project.ToDoList.form;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-
-
+import Augusto.project.ToDoList.enums.Status;
+import Augusto.project.ToDoList.model.SubTask;
+import Augusto.project.ToDoList.model.Task;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import Augusto.project.ToDoList.enums.Status;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-
-@Entity
-public class Task {
+public class TaskPatchForm {
 	
-	@Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@NotNull (message = "invalid id: id is null") 
 	private Long id;
-	@Nonnull
 	private String description;
-	@Nonnull
 	private LocalDateTime deadlineDate;
 	private LocalDateTime finishedDate;
-	@Nonnull
-	private LocalDateTime createDate;
-	@Nonnull
 	private Status status;
-	@OneToMany(mappedBy = "mainTask")
 	private List<SubTask> subTasks;
-	
-	public Task() {}
-	
-	public Task(String description,LocalDateTime deadlineDate) {
-		this.description = description;
-		this.deadlineDate = deadlineDate;
-	}
-	
-	
-	
-	public Task(Long id, String description, LocalDateTime deadlineDate, Status status) {
-		this.id = id;
-		this.description = description;
-		this.deadlineDate = deadlineDate;
-		this.createDate = createDate;
-		this.status = status;
-	}
-
-	@PrePersist
-	protected void onCreate() {
-		status = Status.TO_DO;
-		createDate = LocalDateTime.now();
-	}
 	
 	
 	public Long getId() {
@@ -80,29 +50,36 @@ public class Task {
 	public void setFinishedDate(LocalDateTime finishedDate) {
 		this.finishedDate = finishedDate;
 	}
-	public LocalDateTime getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
-	}
 	public Status getStatus() {
 		return status;
 	}
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
-
 	public List<SubTask> getSubTasks() {
 		return subTasks;
 	}
-
-
 	public void setSubTasks(List<SubTask> subTasks) {
 		this.subTasks = subTasks;
 	}
 	
+	public Task patchTask(Task task) {
+		if(!this.description.isBlank()&& !this.description.isEmpty()) {
+			task.setDescription(this.description);
+		}
+		if(!Objects.isNull(this.deadlineDate)) {
+			task.setDeadlineDate(this.deadlineDate);
+		}
+		if(!Objects.isNull(this.finishedDate)) {
+			task.setFinishedDate(this.finishedDate);
+		}
+		if(!Objects.isNull(this.status)) {
+			task.setStatus(this.status);
+		}
+		
+		
+		return task;
+	}
 	
 	
 	

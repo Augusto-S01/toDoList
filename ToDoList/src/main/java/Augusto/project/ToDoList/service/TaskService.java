@@ -1,6 +1,7 @@
 package Augusto.project.ToDoList.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import Augusto.project.ToDoList.dto.TaskDTO;
 import Augusto.project.ToDoList.form.TaskForm;
+import Augusto.project.ToDoList.form.TaskPatchForm;
 import Augusto.project.ToDoList.model.Task;
 import Augusto.project.ToDoList.repository.TaskRepository;
 
@@ -32,6 +34,20 @@ public class TaskService {
 			Task save = taskRepository.save(task);
 			return ResponseEntity.created(null).body(new TaskDTO(save));
 	}
+
+	public ResponseEntity<TaskDTO> patch(TaskPatchForm taskForm) {
+		Optional<Task> task = taskRepository.findById(taskForm.getId());
+		if(task.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		taskForm.patchTask(task.get());
+		Task patchedTask = taskRepository.save(task.get());
+		return ResponseEntity.ok().body(new TaskDTO(task.get()));
+		
+		
+	}
+	
+
 	
 	
 }
