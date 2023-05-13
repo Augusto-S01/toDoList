@@ -10,9 +10,12 @@ import jakarta.validation.constraints.NotNull;
 
 public class TaskForm {
 	
-	@NotNull @NotBlank
+	@NotNull (message = "invalid description: description is null") 
+	@NotBlank(message = "invalid description: description is blank")
 	private String description;
-	@NotNull 
+	
+	
+	@NotNull(message = "invalid deadLineDate: deadLineDate is null")
 	private LocalDateTime deadlineDate;
 	private Status status;
 
