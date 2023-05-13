@@ -1,0 +1,5 @@
+FROM postgres
+ENV POSTGRES_PASSWORD=admin
+COPY init.sql /docker-entrypoint-initdb.d/init.sql
+VOLUME /var/lib/postgresql/data
+EXPOSE 5432
