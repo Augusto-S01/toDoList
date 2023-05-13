@@ -17,45 +17,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Augusto.project.ToDoList.dto.TaskDTO;
+import Augusto.project.ToDoList.form.SubTaskForm;
 import Augusto.project.ToDoList.form.TaskForm;
 import Augusto.project.ToDoList.form.TaskPatchForm;
 import Augusto.project.ToDoList.model.Task;
+import Augusto.project.ToDoList.service.SubTaskService;
 import Augusto.project.ToDoList.service.TaskService;
 
 
 @RestController
-@RequestMapping("/task")
-public class TaskController {
+@RequestMapping("/subTask")
+public class SubTaskController {
 
 
 	
 	@Autowired
-	private TaskService taskService;
+	private SubTaskService subTaskService;
 	
-	@GetMapping()
-	public ResponseEntity<List<Task>> findAll() {
-		return taskService.findAll();
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<TaskDTO> find(@PathVariable Long id){
-		return taskService.find(id);
-	}
+//	@GetMapping()
+//	public ResponseEntity<List<Task>> findAll() {
+//		return subTaskService.findAll();
+//	}
+//	
 	
 	@PostMapping()
-	public ResponseEntity<TaskDTO> save(@RequestBody @Validated  TaskForm taskForm ) {
-		return taskService.save(taskForm);			
+	public ResponseEntity<?> save(@RequestBody @Validated  SubTaskForm subTaskForm){
+		return subTaskService.save(subTaskForm);
 	}
-	
-	@PatchMapping()
-	public ResponseEntity<TaskDTO> patch(@RequestBody @Validated TaskPatchForm tasKForm){
-		return taskService.patch(tasKForm);
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id){
-		return taskService.delete(id);
-	}
+
 	
 	
 	

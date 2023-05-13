@@ -10,31 +10,38 @@ import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class TaskForm {
-	
+public class SubTaskForm {
+	@NotNull (message = "invalid idMain: id of main task is null") 
+	private Long idMain;
 	@NotNull (message = "invalid description: description is null") 
 	@NotBlank(message = "invalid description: description is blank")
 	private String description;
-	
-	
-	@NotNull(message = "invalid deadLineDate: deadLineDate is null")
 	private LocalDateTime deadlineDate;
 	private Status status;
-	private List<SubTask> subtask;
 
-	public TaskForm(String description,LocalDateTime deadlineDate,List<SubTask> subTask) {
+	public SubTaskForm(String description,LocalDateTime deadlineDate) {
 		this.description = description;
 		this.deadlineDate = deadlineDate;
-		this.subtask = subTask;
 	}
 	
+	public SubTaskForm(String description) {
+		this.description = description;
+	}
 
 
-	public Task transformToEntity() {
-		return new Task(this.description,this.deadlineDate,this.subtask);
+	public SubTask transformToEntity() {
+		return new SubTask(this.description,this.deadlineDate);
 		
 	}
 
+	
+	public Long getIdMain() {
+		return idMain;
+	}
+
+	public void setIdMain(Long idMain) {
+		this.idMain = idMain;
+	}
 	public String getDescription() {
 		return description;
 	}

@@ -5,11 +5,18 @@ import java.util.List;
 
 
 
+
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import Augusto.project.ToDoList.enums.Status;
@@ -28,9 +35,11 @@ public class Task {
 	@Nonnull
 	private LocalDateTime createDate;
 	@Nonnull
+	@Enumerated(EnumType.STRING)
 	private Status status;
-	@OneToMany(mappedBy = "mainTask")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<SubTask> subTasks;
+
 	
 	public Task() {}
 	
@@ -39,13 +48,18 @@ public class Task {
 		this.deadlineDate = deadlineDate;
 	}
 	
+	public Task(String description,LocalDateTime deadlineDate,List<SubTask> subtasks) {
+		this.description = description;
+		this.deadlineDate = deadlineDate;
+		this.subTasks = subtasks;
+	}
+	
 	
 	
 	public Task(Long id, String description, LocalDateTime deadlineDate, Status status) {
 		this.id = id;
 		this.description = description;
 		this.deadlineDate = deadlineDate;
-		this.createDate = createDate;
 		this.status = status;
 	}
 

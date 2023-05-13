@@ -42,9 +42,27 @@ public class TaskService {
 		}
 		taskForm.patchTask(task.get());
 		Task patchedTask = taskRepository.save(task.get());
+		return ResponseEntity.ok().body(new TaskDTO(patchedTask));
+		
+		
+	}
+
+	public ResponseEntity<TaskDTO> find(Long id) {
+		Optional<Task> task = taskRepository.findById(id);
+		if(task.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
 		return ResponseEntity.ok().body(new TaskDTO(task.get()));
-		
-		
+	}
+
+	public ResponseEntity<?> delete(Long id) {
+		Optional<Task> OPtask = taskRepository.findById(id);
+		if(OPtask.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		Task task = OPtask.get();
+		taskRepository.delete(task);
+		return ResponseEntity.ok().build();
 	}
 	
 

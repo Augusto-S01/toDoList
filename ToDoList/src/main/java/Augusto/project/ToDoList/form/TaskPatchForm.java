@@ -64,7 +64,7 @@ public class TaskPatchForm {
 	}
 	
 	public Task patchTask(Task task) {
-		if(!this.description.isBlank()&& !this.description.isEmpty()) {
+		if(!Objects.isNull(this.description) && !this.description.isEmpty()) {
 			task.setDescription(this.description);
 		}
 		if(!Objects.isNull(this.deadlineDate)) {

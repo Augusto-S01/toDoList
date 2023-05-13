@@ -7,9 +7,7 @@ import Augusto.project.ToDoList.enums.Status;
 import Augusto.project.ToDoList.model.SubTask;
 import Augusto.project.ToDoList.model.Task;
 
-
-public class TaskDTO {
-		
+public class SubTaskDTO {
 	private Long id;
 	private String description;
 	private LocalDateTime deadlineDate;
@@ -21,13 +19,12 @@ public class TaskDTO {
 	
 
 
-	public TaskDTO(Task task) {
+	public SubTaskDTO(SubTask task) {
 		this.id = task.getId();
 		this.description = task.getDescription();
 		this.deadlineDate = task.getDeadlineDate();
 		this.createDate = task.getCreateDate();
 		this.status = task.getStatus();
-		this.subTasks = task.getSubTasks();
 	}
 	
 
@@ -76,7 +73,4 @@ public class TaskDTO {
 	public void setSubTasks(List<SubTask> subTasks) {
 		this.subTasks = subTasks;
 	}
-
-		
-
 }

@@ -4,9 +4,12 @@ package Augusto.project.ToDoList.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import Augusto.project.ToDoList.enums.Status;
@@ -16,16 +19,28 @@ public class SubTask {
 	
 	@Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne
-	private Task mainTask;
 	private String description;
 	private LocalDateTime deadlineDate;
 	private LocalDateTime finishedDate;
 	private LocalDateTime createDate;
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+
+	
+	
+	public SubTask() {}
+	
+	public SubTask(String description,LocalDateTime deadlineDate) {
+		this.description = description;
+		this.deadlineDate = deadlineDate;
+	}
+	
+	
 	
 	@PrePersist
 	protected void onCreate() {
+		status = Status.TO_DO;
 		createDate = LocalDateTime.now();
 	}
 	
@@ -66,6 +81,12 @@ public class SubTask {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+
+
+
+
+
 	
 	
 	
