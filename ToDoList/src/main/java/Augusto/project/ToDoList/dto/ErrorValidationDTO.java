@@ -5,7 +5,6 @@ public class ErrorValidationDTO {
 	private String error;
 	
 	public ErrorValidationDTO(String field, String error) {
-		super();
 		this.field = field;
 		this.error = error;
 	}

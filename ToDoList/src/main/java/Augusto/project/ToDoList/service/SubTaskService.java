@@ -29,12 +29,12 @@ public class SubTaskService {
 		if(opMainTask.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		Task mainTask = opMainTask.get();
+		Task task = opMainTask.get();
 		SubTask subtask = subTaskForm.transformToEntity();
-		mainTask.getSubTasks().add(subtask);
-		Task save = taskRepository.save(mainTask);
-		SubTask retorno = save.getSubTasks().get(save.getSubTasks().size()-1);
-		return ResponseEntity.created(null).body(new SubTaskDTO(retorno));
+		task.getSubTasks().add(subtask);
+		Task savedTask = taskRepository.save(task);
+		SubTask savedSubTask = getLastSubTask(savedTask);
+		return ResponseEntity.created(null).body(new SubTaskDTO(savedSubTask));
 		
 	}
 
@@ -44,12 +44,8 @@ public class SubTaskService {
 		if(opMainTask.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		Task mainTask = opMainTask.get();
-		Optional<SubTask> opSubtask = mainTask.getSubTasks().stream().filter(s -> s.getId() == subTaskPatchForm.getId()).findFirst();
-		if(opSubtask.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		SubTask subtask = opSubtask.get();
+		Task main = opMainTask.get();
+		SubTask subtask = getSubTaskById(main,subTaskPatchForm);
 		subTaskPatchForm.patchTask(subtask);
 		SubTask save = subTaskRepository.save(subtask);
 		return ResponseEntity.ok().body(new SubTaskDTO(save));
@@ -78,5 +74,13 @@ public class SubTaskService {
 		return ResponseEntity.ok().build();
 	}
 	
+	
+	private SubTask getLastSubTask(Task task) {
+		return task.getSubTasks().get(task.getSubTasks().size()-1);
+	}
+	
+	private SubTask getSubTaskById(Task task,SubTaskPatchForm form){
+		return task.getSubTasks().stream().filter(s -> s.getId() == form.getId()).findFirst().get();
+	}
 	
 }

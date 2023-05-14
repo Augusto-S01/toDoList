@@ -1,12 +1,9 @@
 package Augusto.project.ToDoList.form;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import Augusto.project.ToDoList.enums.Status;
 import Augusto.project.ToDoList.model.SubTask;
-import Augusto.project.ToDoList.model.Task;
-import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

@@ -31,28 +31,31 @@ public class TaskService {
 	
 	public ResponseEntity<TaskDTO> save(TaskForm taskForm) {
 			Task task = taskForm.transformToEntity();
-			Task save = taskRepository.save(task);
-			return ResponseEntity.created(null).body(new TaskDTO(save));
+			Task savedTask = taskRepository.save(task);
+			return ResponseEntity.created(null).body(new TaskDTO(savedTask));
 	}
 
 	public ResponseEntity<TaskDTO> patch(TaskPatchForm taskForm) {
-		Optional<Task> task = taskRepository.findById(taskForm.getId());
-		if(task.isEmpty()) {
+		Optional<Task> opTask = taskRepository.findById(taskForm.getId());
+		if(opTask.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		taskForm.patchTask(task.get());
-		Task patchedTask = taskRepository.save(task.get());
-		return ResponseEntity.ok().body(new TaskDTO(patchedTask));
+		Task task = opTask.get();
+		taskForm.patchTask(task);
+		Task savedTask = taskRepository.save(task);
+		return ResponseEntity.ok().body(new TaskDTO(savedTask));
 		
 		
 	}
 
 	public ResponseEntity<TaskDTO> find(Long id) {
-		Optional<Task> task = taskRepository.findById(id);
-		if(task.isEmpty()) {
+		Optional<Task> opTask = taskRepository.findById(id);
+		if(opTask.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(new TaskDTO(task.get()));
+		Task task = opTask.get();
+		
+		return ResponseEntity.ok().body(new TaskDTO(task));
 	}
 
 	public ResponseEntity<?> delete(Long id) {

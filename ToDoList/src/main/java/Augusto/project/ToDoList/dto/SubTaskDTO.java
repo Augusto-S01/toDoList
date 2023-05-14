@@ -1,11 +1,9 @@
 package Augusto.project.ToDoList.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import Augusto.project.ToDoList.enums.Status;
 import Augusto.project.ToDoList.model.SubTask;
-import Augusto.project.ToDoList.model.Task;
 
 public class SubTaskDTO {
 	private Long id;
