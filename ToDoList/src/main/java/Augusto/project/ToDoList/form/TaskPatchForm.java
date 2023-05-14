@@ -75,10 +75,20 @@ public class TaskPatchForm {
 		}
 		if(!Objects.isNull(this.status)) {
 			task.setStatus(this.status);
+			patchDataFinish(task);
 		}
 		
 		
 		return task;
+	}
+	
+	private void patchDataFinish (Task task) {
+		if(this.status == Status.IN_PROGRESS || this.status == Status.TO_DO) {
+			task.setFinishedDate(null);
+		}
+		if(this.status == Status.DONE) {
+			task.setFinishedDate(LocalDateTime.now());
+		}
 	}
 	
 	

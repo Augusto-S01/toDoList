@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import Augusto.project.ToDoList.enums.Status;
 import Augusto.project.ToDoList.model.SubTask;
 import Augusto.project.ToDoList.model.Task;
@@ -17,6 +19,7 @@ public class SubTaskPatchForm {
 	private Long id;
 	private String description;
 	private LocalDateTime deadlineDate;
+	@JsonIgnore
 	private LocalDateTime finishedDate;
 	private Status status;
 	private List<SubTask> subTasks;
@@ -79,9 +82,19 @@ public class SubTaskPatchForm {
 		}
 		if(!Objects.isNull(this.status)) {
 			subtask.setStatus(this.status);
+			patchDataFinish(subtask);
 		}
 		
 		
 		return subtask;
+	}
+	
+	private void patchDataFinish (SubTask subtask) {
+		if(this.status == Status.IN_PROGRESS || this.status == Status.TO_DO) {
+			subtask.setFinishedDate(null);
+		}
+		if(this.status == Status.DONE) {
+			subtask.setFinishedDate(LocalDateTime.now());
+		}
 	}
 }

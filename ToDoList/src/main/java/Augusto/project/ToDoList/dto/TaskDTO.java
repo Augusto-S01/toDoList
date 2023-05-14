@@ -25,6 +25,7 @@ public class TaskDTO {
 		this.id = task.getId();
 		this.description = task.getDescription();
 		this.deadlineDate = task.getDeadlineDate();
+		this.finishedDate = task.getFinishedDate();
 		this.createDate = task.getCreateDate();
 		this.status = task.getStatus();
 		this.subTasks = task.getSubTasks();
