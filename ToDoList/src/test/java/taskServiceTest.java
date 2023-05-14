@@ -10,11 +10,8 @@ import Augusto.project.ToDoList.model.SubTask;
 import Augusto.project.ToDoList.model.Task;
 import Augusto.project.ToDoList.service.TaskService;
 
-class taskServiceTest {
+class patchedTaskTest {
 
-
-	TaskService taskService;
-	
 	@Test
 	public void testPatchDescription() {
 		Task task = new Task("test description",LocalDateTime.of(2023, 4, 1, 12, 0));
@@ -22,11 +19,14 @@ class taskServiceTest {
 		taskForm.setId(1L);
 		Task patchedTask = taskForm.patchTask(task);
 		
-		Task task2 = new Task("changed description",LocalDateTime.of(2023, 4, 1, 12, 0));
-		System.out.println();
-		assertEquals(task2.getDescription(),
+
+		assertEquals(
+				new Task("changed description",LocalDateTime.of(2023, 4, 1, 12, 0)),
 				patchedTask.getDescription());
-	}
+		}
+	
+	
+	
 	
 
 	

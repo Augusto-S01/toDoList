@@ -25,6 +25,8 @@ public class TaskPatchForm {
 	private Status status;
 	private List<SubTask> subTasks;
 	
+	public TaskPatchForm() {}
+	
 	
 	public Long getId() {
 		return id;

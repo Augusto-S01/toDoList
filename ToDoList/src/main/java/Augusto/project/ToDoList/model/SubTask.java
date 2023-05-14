@@ -31,6 +31,10 @@ public class SubTask {
 	
 	public SubTask() {}
 	
+	public SubTask(String description) {
+		this.description = description;
+	}
+	
 	public SubTask(String description,LocalDateTime deadlineDate) {
 		this.description = description;
 		this.deadlineDate = deadlineDate;
