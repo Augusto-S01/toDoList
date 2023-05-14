@@ -1,6 +1,7 @@
 package Augusto.project.ToDoList.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,16 +28,19 @@ public class SubTaskController {
 	private SubTaskService subTaskService;
 	
 	@PostMapping()
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<SubTaskDTO> save(@RequestBody @Validated  SubTaskForm subTaskForm){
 		return subTaskService.save(subTaskForm);
 	}
 	
 	@PatchMapping()
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<SubTaskDTO> patch(@RequestBody @Validated SubTaskPatchForm subTaskPatchForm){
 		return subTaskService.patch(subTaskPatchForm);
 	}
 	
 	@DeleteMapping("/{mainId}/{id}")
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<?> delete(@PathVariable Long mainId,@PathVariable Long id){
 		return subTaskService.delete(mainId,id);
 	}

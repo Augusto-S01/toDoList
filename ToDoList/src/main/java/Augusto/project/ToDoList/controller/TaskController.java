@@ -3,6 +3,8 @@ package Augusto.project.ToDoList.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +35,7 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@GetMapping()
+	@Cacheable(value = "list-task")
 	public ResponseEntity<List<Task>> findAll() {
 		return taskService.findAll();
 	}
@@ -43,16 +46,19 @@ public class TaskController {
 	}
 	
 	@PostMapping()
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<TaskDTO> save(@RequestBody @Validated  TaskForm taskForm ) {
 		return taskService.save(taskForm);			
 	}
 	
 	@PatchMapping()
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<TaskDTO> patch(@RequestBody @Validated TaskPatchForm tasKForm){
 		return taskService.patch(tasKForm);
 	}
 	
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "list-task", allEntries = true)
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		return taskService.delete(id);
 	}
