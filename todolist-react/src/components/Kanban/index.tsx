@@ -13,16 +13,17 @@ interface Props{
     tarefas: Tarefa[];
     atualizarTarefas: () => void;
     openSubModal: () => void;
+    setIdTarefaAtual: (id: number | undefined) => void;
 
 }
 
 
-function Kanban({atualizarTarefas,tarefas,openSubModal}: Props) {
+function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual}: Props) {
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
-            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
-            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
+            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
+            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
+            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
         </div>
     );
 

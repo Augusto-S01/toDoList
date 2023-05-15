@@ -13,6 +13,7 @@ function App() {
   const [tarefas,setTarefas] = useState<Tarefa[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSubModalOpen, setSubModalOpen] = useState(false);
+  const [IdTarefaAtual, setIdTarefaAtual] = useState<number | undefined>(undefined);
 
   const openModal = () => {
     setModalOpen(true);
@@ -30,6 +31,7 @@ function App() {
     setSubModalOpen(false);
   };
 
+
     
   function atualizarTarefas(){}
 
@@ -44,9 +46,9 @@ function App() {
     
     <div className={style.App}>
       <Modal onClose={closeModal} isOpen={isModalOpen} atualizarTarefa={atualizarTarefas} />
-      <SubModal onClose={closeSubModal} isOpen={isSubModalOpen} atualizarTarefa={atualizarTarefas} />
+      <SubModal onClose={closeSubModal} isOpen={isSubModalOpen} atualizarTarefa={atualizarTarefas} IdTarefaAtual={IdTarefaAtual}/>
       <Header atualizarTarefas={atualizarTarefas} tarefas={tarefas} setTarefas={setTarefas} openModal={openModal}/>
-      <Kanban atualizarTarefas={atualizarTarefas} tarefas={tarefas} openSubModal={openSubModal}/>
+      <Kanban atualizarTarefas={atualizarTarefas} tarefas={tarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
 
     </div>
   );

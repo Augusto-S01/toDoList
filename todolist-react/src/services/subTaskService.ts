@@ -16,6 +16,19 @@ export function patchSubTaskToDO(subTask:subTarefa,mainId:number):Promise<subTar
     }).then(response => response.data);
 }
 
+export function postSubTask(idMain:number,description:string,deadlineDate:Date):Promise<subTarefa> {
+    return axios.post<subTarefa>('http://localhost:8080/subTask',{
+        idMain: idMain,
+        description: description,
+        deadlineDate: deadlineDate,
+    },{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    }).then(response => response.data);
+}
+
 export function patchSubTaskInProgress(subTask:subTarefa,mainId:number):Promise<subTarefa> {
     
         return axios.patch<subTarefa>('http://localhost:8080/subTask',{

@@ -2,7 +2,7 @@ import style from "./task.module.scss";
 import React, { useState } from "react";
 
 import { Tarefa } from "../../models/Tarefa";
-
+import  AdicionarSubTarefa  from "../botoes/AdicionarSubTarefa"
 
 
 import Salvar from "../botoes/salvar";
@@ -16,9 +16,10 @@ interface Props{
     onDragStart?: (tarefa: Tarefa, event: React.DragEvent<HTMLDivElement>) => void;
     atualizarTarefa: () => void;
     openSubModal: () => void;
+    setIdTarefaAtual: (id: number | undefined) => void;
 }
 
-function Task({tarefa,onDragStart,atualizarTarefa,openSubModal}: Props) {
+function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual}: Props) {
     const [editando, setEditando] = useState<Boolean>(tarefa.editMode? true : false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
@@ -72,7 +73,7 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal}: Props) {
                 {editando &&<Salvar idTarefa={tarefa.id} prazo={prazo} descricao={descricao} setEditar={setEditando} atualizarTarefa={atualizarTarefa}/>}
                 <Editar setEditar={setEditando} editando={editando}/>
                 <Excluir atualizarTarefa={atualizarTarefa} mainId={tarefa.id} />
-                <AdicionarSubTarefa openSubModal={openSubModal} mainId={tarefa.id}/>
+                <AdicionarSubTarefa openSubModal={openSubModal} mainId={tarefa.id} setIdTarefaAtual={setIdTarefaAtual}/>
             </div>
 
 
