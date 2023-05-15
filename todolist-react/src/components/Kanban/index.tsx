@@ -7,6 +7,7 @@ import Done from '../Columns/done';
 import { Tarefa } from '../../models/Tarefa';
 
 import { getTasks } from '../../services/taskService';
+import { Status } from '../../enum/status';
 
 function Kanban() {
     const [tarefas,setTarefas] = useState<Tarefa[]>([]); 
@@ -15,13 +16,18 @@ function Kanban() {
             setTarefas(response);
         });
     }, []);
+
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={tarefas}/>
-            <InProgress tarefas={tarefas}/>
-            <Done tarefas={tarefas}/>
+            <ToDo tarefas={filterTasksByStatus(Status.TODO)}/>
+            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)}/>
+            <Done tarefas={filterTasksByStatus(Status.DONE)}/>
         </div>
     );
+
+    function filterTasksByStatus(status: Status): Tarefa[] {
+        return tarefas.filter((tarefa) => tarefa.status === status);
+    }
 }
 
 export default Kanban;

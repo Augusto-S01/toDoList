@@ -1,20 +1,27 @@
 import style from "./task.module.scss";
-import React from "react";
+import React, { useState } from "react";
 import Editar from "../botoes/editar";
-import Comecar from "../botoes/comecar";
-import Finalizar from "../botoes/finalizar";
-import VoltarAFazer from "../botoes/voltarAFazer";
+
 
 import { Tarefa } from "../../models/Tarefa";
+import Excluir from "../botoes/Excluir";
 
 interface Props{
     tarefa: Tarefa;
+    onDragStart?: (tarefa: Tarefa, event: React.DragEvent<HTMLDivElement>) => void;
 }
 
-function Task({tarefa}: Props) {
+function Task({tarefa,onDragStart}: Props) {
+    const [editando, setEditando] = useState<Boolean>(false);
 
+    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+        event.dataTransfer.setData("text/plain", JSON.stringify(tarefa));
+        onDragStart && onDragStart(tarefa, event);
+      };
+    
+    
     return(
-        <div className={style.task}>
+        <div className={style.task} draggable onDragStart={handleDragStart} >
             <span className={style.spanDescricao}>Descrição:</span>
             <p className={style.descricao}>{tarefa.description}</p>
             <div className={style.containerData}>
@@ -32,9 +39,8 @@ function Task({tarefa}: Props) {
             </div>}
             <div className={style.containerBotoes}>
                 <Editar/>
-                <Comecar/>
-                <VoltarAFazer/>
-                <Finalizar/>
+                <Excluir/>
+
             </div>
 
             
