@@ -1,0 +1,26 @@
+version: '3'
+services:
+  postgres:
+    build:
+        context: ./database-docker
+        dockerfile: dockerfile
+    ports:
+      - '5433:5432'
+    networks:
+      - to-do-project
+
+
+  todolist:
+    build:
+      context: ./ToDoList
+      dockerfile: Dockerfile
+    ports:
+      - '6000:8080'
+    networks:
+      - to-do-project
+    depends_on:
+      - postgres
+
+networks:
+  to-do-project:
+    driver: bridge
