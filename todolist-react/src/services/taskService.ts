@@ -1,9 +1,9 @@
 import axios, { Axios } from "axios";
-import { Tarefas } from "../models/Tarefas";
+import { Tarefa } from "../models/Tarefa";
 
-export function getTasks(): Promise<Tarefas[]> {
+export function getTasks(): Promise<Tarefa[]> {
 
-    return axios.get<Tarefas[]>('http://localhost:8080/task', {
+    return axios.get<Tarefa[]>('http://localhost:8080/task', {
         headers: {
             'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"

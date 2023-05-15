@@ -4,17 +4,22 @@ import ToDo from '../Columns/toDo';
 import InProgress from '../Columns/inProgress';
 import Done from '../Columns/done';
 
-import { Tarefas } from '../../models/Tarefas';
+import { Tarefa } from '../../models/Tarefa';
 
 import { getTasks } from '../../services/taskService';
 
 function Kanban() {
-    const [tarefas,setTarefas] = useState<Tarefas[]>([]); 
+    const [tarefas,setTarefas] = useState<Tarefa[]>([]); 
+    useEffect(() => {
+        getTasks().then((response) => {
+            setTarefas(response);
+        });
+    }, []);
     return (
         <div className={style.kanban}>
             <ToDo tarefas={tarefas}/>
-            <InProgress/>
-            <Done/>
+            <InProgress tarefas={tarefas}/>
+            <Done tarefas={tarefas}/>
         </div>
     );
 }

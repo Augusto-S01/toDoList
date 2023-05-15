@@ -5,23 +5,31 @@ import Comecar from "../botoes/comecar";
 import Finalizar from "../botoes/finalizar";
 import VoltarAFazer from "../botoes/voltarAFazer";
 
-function Task() {
+import { Tarefa } from "../../models/Tarefa";
+
+interface Props{
+    tarefa: Tarefa;
+}
+
+function Task({tarefa}: Props) {
+
     return(
         <div className={style.task}>
             <span className={style.spanDescricao}>Descrição:</span>
-            <p className={style.descricao}>Lorem ipsum dolor  consequatur tempore provident molestias!</p>
+            <p className={style.descricao}>{tarefa.description}</p>
             <div className={style.containerData}>
                 <span className={style.spanType}>Criado:</span>
-                <span className={style.data}>16/04/2013</span>
+                <span className={style.data}>{new Date(tarefa.createDate).toLocaleDateString("pt-BR")}</span>
             </div>
             <div className={style.containerData}>
                 <span className={style.spanType}>Prazo:</span>
-                <span className={style.data}>16/04/2013</span>
+                <span className={style.data}>{new Date(tarefa.deadlineDate).toLocaleDateString("pt-BR")}</span>
             </div>
+            {tarefa.finishedDate &&  
             <div className={style.containerData}>
                 <span className={style.spanType}>Finalizado:</span>
-                <span className={style.data}>16/04/2013</span>
-            </div>
+                <span className={style.data}>{new Date(tarefa.finishedDate).toLocaleDateString("pt-BR")}</span>
+            </div>}
             <div className={style.containerBotoes}>
                 <Editar/>
                 <Comecar/>
@@ -33,6 +41,10 @@ function Task() {
 
         </div>
     )
+
+    function getFormattedDate(date: Date){
+        return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    }
 }
 
 export default Task;
