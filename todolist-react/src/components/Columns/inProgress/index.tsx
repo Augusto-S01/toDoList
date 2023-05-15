@@ -2,14 +2,14 @@ import style from "./inProgress.module.scss";
 import Task from "../../task";
 import React, { useState } from "react";
 import { Tarefa } from "../../../models/Tarefa";
+import { patchInProgress } from "../../../services/taskService";
 
 
 interface Props{
     tarefas: Tarefa[];
+    atualizaTarefas: () => void;
 }
-function InProgress( tarefas: Props) {
-
-    const [tarefasInProgress, setTarefasInProgress] = useState<Props>(tarefas);
+function InProgress( {tarefas,atualizaTarefas}: Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
       // Manipule o evento de arrastar aqui, se necessário
@@ -19,6 +19,9 @@ function InProgress( tarefas: Props) {
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
       const tarefa = JSON.parse(event.dataTransfer.getData("text/plain")) as Tarefa;
+      patchInProgress(tarefa).then(() => {
+        atualizaTarefas();
+      });
       console.log("Tarefa solta:", tarefa);
     };
   
@@ -33,7 +36,7 @@ function InProgress( tarefas: Props) {
         className={style.column}>
             <h1 className={style.inProgressTitulo} >in Progress</h1>
 
-            {tarefas.tarefas.map((tarefa) => (
+            {tarefas.map((tarefa) => (
                 <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart}/>
             ))}
         </div>

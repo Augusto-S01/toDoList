@@ -10,17 +10,20 @@ import { getTasks } from '../../services/taskService';
 import { Status } from '../../enum/status';
 
 function Kanban() {
-    const [tarefas,setTarefas] = useState<Tarefa[]>([]); 
+    const [tarefas,setTarefas] = useState<Tarefa[]>([]);
+    
+    function atualizarTarefas(){}
+
     useEffect(() => {
         getTasks().then((response) => {
             setTarefas(response);
         });
-    }, []);
+    }, [atualizarTarefas]);
 
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={filterTasksByStatus(Status.TODO)}/>
-            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)}/>
+            <ToDo tarefas={filterTasksByStatus(Status.TODO)} />
+            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas}/>
             <Done tarefas={filterTasksByStatus(Status.DONE)}/>
         </div>
     );
