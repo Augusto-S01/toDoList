@@ -1,0 +1,17 @@
+.column{
+    background-color: #D1F5E9;
+    padding: 1em;
+    min-height: 50vh;
+    width: 19em;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.doneTitulo{
+    font-family: 'Poppins', sans-serif;
+    color: #2DA077;
+    font-size: 1.5em;
+    align-items: center;
+    font-weight: bold;
+}

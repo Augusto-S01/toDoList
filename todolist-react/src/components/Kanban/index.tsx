@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import style from './kanban.module.scss';
-import ColumnToDo from '../Columns/toDo';
+import ToDo from '../Columns/toDo';
+import InProgress from '../Columns/inProgress';
+import Done from '../Columns/done';
+
+import { Tarefas } from '../../models/Tarefas';
+
+import { getTasks } from '../../services/taskService';
 
 function Kanban() {
+    const [tarefas,setTarefas] = useState<Tarefas[]>([]); 
     return (
         <div className={style.kanban}>
-            <ColumnToDo/>
+            <ToDo tarefas={tarefas}/>
+            <InProgress/>
+            <Done/>
         </div>
     );
 }
