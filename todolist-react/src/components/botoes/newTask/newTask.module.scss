@@ -1,0 +1,19 @@
+.newTask{
+    color: #FFFFFF;
+    background-color: #4CA1FF;
+    border-radius: 0.5em;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25em;
+    height: 2em;
+    width: 8.5em;
+    margin-left: 2em;
+
+    &:hover{
+        background-color: #275283;
+        width: 8.7em;
+        height: 2.1em;
+        cursor: pointer;
+    }
+
+}
