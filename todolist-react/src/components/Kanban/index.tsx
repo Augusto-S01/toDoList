@@ -12,16 +12,17 @@ import { Status } from '../../enum/status';
 interface Props{
     tarefas: Tarefa[];
     atualizarTarefas: () => void;
+    openSubModal: () => void;
 
 }
 
 
-function Kanban({atualizarTarefas,tarefas}: Props) {
+function Kanban({atualizarTarefas,tarefas,openSubModal}: Props) {
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas}/>
-            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas}/>
-            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas}/>
+            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
+            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
+            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal}/>
         </div>
     );
 

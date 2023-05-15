@@ -8,8 +8,9 @@ import { patchInProgress } from "../../../services/taskService";
 interface Props{
     tarefas: Tarefa[];
     atualizaTarefas: () => void;
+    openSubModal: () => void;
 }
-function InProgress( {tarefas,atualizaTarefas}: Props) {
+function InProgress( {tarefas,atualizaTarefas,openSubModal}: Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
       // Manipule o evento de arrastar aqui, se necessário
@@ -37,7 +38,7 @@ function InProgress( {tarefas,atualizaTarefas}: Props) {
             <h1 className={style.inProgressTitulo} >in Progress</h1>
 
             {tarefas.map((tarefa) => (
-                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} />
+                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} openSubModal={openSubModal}/>
             ))}
         </div>
     )

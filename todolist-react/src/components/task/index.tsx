@@ -15,9 +15,10 @@ interface Props{
     tarefa: Tarefa;
     onDragStart?: (tarefa: Tarefa, event: React.DragEvent<HTMLDivElement>) => void;
     atualizarTarefa: () => void;
+    openSubModal: () => void;
 }
 
-function Task({tarefa,onDragStart,atualizarTarefa,}: Props) {
+function Task({tarefa,onDragStart,atualizarTarefa,openSubModal}: Props) {
     const [editando, setEditando] = useState<Boolean>(tarefa.editMode? true : false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
@@ -70,7 +71,8 @@ function Task({tarefa,onDragStart,atualizarTarefa,}: Props) {
             <div className={style.containerBotoes}>
                 {editando &&<Salvar idTarefa={tarefa.id} prazo={prazo} descricao={descricao} setEditar={setEditando} atualizarTarefa={atualizarTarefa}/>}
                 <Editar setEditar={setEditando} editando={editando}/>
-                <Excluir/>
+                <Excluir atualizarTarefa={atualizarTarefa} mainId={tarefa.id} />
+                <AdicionarSubTarefa openSubModal={openSubModal} mainId={tarefa.id}/>
             </div>
 
 

@@ -8,9 +8,10 @@ import { patchToDo } from "../../../services/taskService";
 interface Props{
     tarefas: Tarefa[];
     atualizaTarefas: () => void;
+    openSubModal: () => void;
 }
 
-function ToDo({tarefas,atualizaTarefas}: Props) {
+function ToDo({tarefas,atualizaTarefas,openSubModal}: Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
         // Manipule o evento de arrastar aqui, se necessário
@@ -37,7 +38,7 @@ function ToDo({tarefas,atualizaTarefas}: Props) {
         className={style.column}>
             <h1 className={style.toDoTitulo}>To do</h1>
             {tarefas.map((tarefa) => (
-                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} />
+                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} openSubModal={openSubModal}/>
             ))}
         </div>
     )

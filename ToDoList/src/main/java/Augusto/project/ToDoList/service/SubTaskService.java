@@ -40,12 +40,11 @@ public class SubTaskService {
 
 
 	public ResponseEntity<SubTaskDTO> patch(SubTaskPatchForm subTaskPatchForm) {
-		Optional<Task> opMainTask = taskRepository.findById(subTaskPatchForm.getIdMain());
-		if(opMainTask.isEmpty()) {
+		Optional<SubTask> opSubtask = subTaskRepository.findById(subTaskPatchForm.getId());
+		if(opSubtask.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		Task main = opMainTask.get();
-		SubTask subtask = getSubTaskById(main,subTaskPatchForm);
+		SubTask subtask = opSubtask.get();
 		subTaskPatchForm.patchTask(subtask);
 		SubTask save = subTaskRepository.save(subtask);
 		return ResponseEntity.ok().body(new SubTaskDTO(save));

@@ -42,4 +42,13 @@ export function patchSubTaskDone(subTask:subTarefa,mainId:number):Promise<subTar
                     "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
             },
             }).then(response => response.data);
-    }
+}
+
+export function deleteSubTask(subId:number,mainId:number) {
+    return axios.delete(`http://localhost:8080/subTask/${mainId}/${subId}`,{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    });
+}

@@ -6,9 +6,10 @@ import { patchDone } from "../../../services/taskService";
 interface Props{
     tarefas: Tarefa[];
     atualizaTarefas: () => void;
+    openSubModal: () => void;
 }
 
-function Done({tarefas,atualizaTarefas} : Props) {
+function Done({tarefas,atualizaTarefas,openSubModal} : Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
         // Manipule o evento de arrastar aqui, se necessário
@@ -36,7 +37,7 @@ function Done({tarefas,atualizaTarefas} : Props) {
             <h1 className={style.doneTitulo}>Done</h1>
 
             {tarefas.map((tarefa) => (
-                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} />
+                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} openSubModal={openSubModal} />
             ))}
         </div>
     )

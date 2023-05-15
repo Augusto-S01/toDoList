@@ -1,5 +1,5 @@
 interface SalvarTarefaDTO {
-    id: number;
+    id?: number;
     description: string;
     deadlineDate : Date;
 }

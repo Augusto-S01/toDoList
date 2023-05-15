@@ -15,6 +15,17 @@ export function getTasks(): Promise<Tarefa[]> {
     
 }
 
+
+export function postTask(tarefaDto:SalvarTarefaDTO){
+    return axios.post<SalvarTarefaDTO>('http://localhost:8080/task',tarefaDto,{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    }).then(response => response.data);
+
+}
+
 export function patchToDo(tarefa:Tarefa):Promise<Tarefa> {
 
     return axios.patch<Tarefa>('http://localhost:8080/task',{
@@ -64,4 +75,13 @@ export function atualizaTarefa(tarefaDto:SalvarTarefaDTO){
     }).then(response => response.data);
 
     
+}
+
+export function deleteTask(id:number) {
+    return axios.delete(`http://localhost:8080/task/${id}`,{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    });
 }

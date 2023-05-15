@@ -8,14 +8,15 @@ interface Props{
     atualizarTarefas: () => void;
     tarefas : Tarefa[];
     setTarefas: (tarefas: Tarefa[]) => void;
+    openModal: () => void;
 }
 
 
 
-function NewTask({atualizarTarefas,tarefas,setTarefas}: Props){
+function NewTask({atualizarTarefas,tarefas,setTarefas,openModal}: Props){
 
     const handlerNovaTarefa = () => {
-
+        openModal();
     }
 
 

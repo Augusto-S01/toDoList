@@ -73,15 +73,10 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
                 <span className={style.spanType}>Finalizado:</span>
                 <span className={style.data}>{new Date(subTarefa.finishedDate).toLocaleDateString("pt-BR")}</span>
             </div>}
-            <div className={style.containerStatus}>
-                <span className={`${style.spanStatus} ${style.todo} ${style.todoActive}  ${subTarefa.status == Status.TODO? style.todoActive : ""}  `} onClick={handlerTodoActive}>To Do</span>
-                <span className={`${style.spanStatus} ${style.inProgress} ${subTarefa.status == Status.IN_PROGRESS? style.inProgressActive : ""}`} onClick={handlerInProgressActive}>In Progress</span>
-                <span className={`${style.spanStatus} ${style.done} ${subTarefa.status == Status.DONE? style.doneActive : ""}  `} onClick={handleDoneActive}>Done</span>
-            </div>
             <div className={style.containerBotoes}>
                 {editando &&<Salvar idTarefa={subTarefa.id} prazo={prazo} descricao={descricao} setEditar={setEditando} atualizarTarefa={atualizarTarefa}/>}
                 <Editar setEditar={setEditando} editando={editando}/>
-                <Excluir/>
+                <Excluir atualizarTarefa={atualizarTarefa} mainId={mainId} subId={subTarefa.id} />
             </div>
         </div>
     )
