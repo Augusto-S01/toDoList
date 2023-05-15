@@ -9,17 +9,14 @@ import { Tarefa } from '../../models/Tarefa';
 import { getTasks } from '../../services/taskService';
 import { Status } from '../../enum/status';
 
-function Kanban() {
-    const [tarefas,setTarefas] = useState<Tarefa[]>([]);
-    
-    function atualizarTarefas(){}
+interface Props{
+    tarefas: Tarefa[];
+    atualizarTarefas: () => void;
 
-    useEffect(() => {
-        getTasks().then((response) => {
-            setTarefas(response);
-        });
-    }, [atualizarTarefas]);
+}
 
+
+function Kanban({atualizarTarefas,tarefas}: Props) {
     return (
         <div className={style.kanban}>
             <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas}/>

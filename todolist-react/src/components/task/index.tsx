@@ -3,9 +3,13 @@ import React, { useState } from "react";
 
 import { Tarefa } from "../../models/Tarefa";
 
+
+
 import Salvar from "../botoes/salvar";
 import Editar from "../botoes/editar";
 import Excluir from "../botoes/Excluir";
+import  SubTarefa  from "./SubTarefa";
+import {subTarefa} from "../../models/subTarefa";
 
 interface Props{
     tarefa: Tarefa;
@@ -13,8 +17,8 @@ interface Props{
     atualizarTarefa: () => void;
 }
 
-function Task({tarefa,onDragStart,atualizarTarefa}: Props) {
-    const [editando, setEditando] = useState<Boolean>(false);
+function Task({tarefa,onDragStart,atualizarTarefa,}: Props) {
+    const [editando, setEditando] = useState<Boolean>(tarefa.editMode? true : false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
 
@@ -68,6 +72,12 @@ function Task({tarefa,onDragStart,atualizarTarefa}: Props) {
                 <Editar setEditar={setEditando} editando={editando}/>
                 <Excluir/>
             </div>
+
+
+            {tarefa.subTasks.map((subTask:subTarefa) => (
+                <SubTarefa key={subTask.id} subTarefa={subTask} atualizarTarefa={atualizarTarefa} mainId={tarefa.id}/>)
+                )}
+
         </div>
     )
 

@@ -1,5 +1,5 @@
 import { Status } from "../enum/status";
-import { SubTarefa } from "./SubTarefa";
+import { subTarefa } from "./subTarefa";
 
 export interface Tarefa {
     id: number;
@@ -8,5 +8,6 @@ export interface Tarefa {
     deadlineDate : Date;
     finishedDate : Date;
     createDate : Date;
-    subTasks : SubTarefa[];
+    subTasks : subTarefa[];
+    editMode? : boolean;
 }
