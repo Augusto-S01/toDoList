@@ -22,9 +22,9 @@ function Kanban() {
 
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={filterTasksByStatus(Status.TODO)} />
+            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas}/>
             <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas}/>
-            <Done tarefas={filterTasksByStatus(Status.DONE)}/>
+            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas}/>
         </div>
     );
 

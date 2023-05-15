@@ -14,6 +14,19 @@ export function getTasks(): Promise<Tarefa[]> {
     
 }
 
+export function patchToDo(tarefa:Tarefa):Promise<Tarefa> {
+
+    return axios.patch<Tarefa>('http://localhost:8080/task',{
+        id: tarefa.id,
+        status: "TO_DO"
+    },{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    }).then(response => response.data);
+}
+
 export function patchInProgress(tarefa:Tarefa):Promise<Tarefa> {
 
     return axios.patch<Tarefa>('http://localhost:8080/task',{
