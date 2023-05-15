@@ -1,5 +1,6 @@
 import axios, { Axios } from "axios";
 import { Tarefa } from "../models/Tarefa";
+import SalvarTarefaDTO  from "../models/salvarTarefaDTO";
 
 export function getTasks(): Promise<Tarefa[]> {
 
@@ -52,4 +53,15 @@ export function patchDone(tarefa:Tarefa):Promise<Tarefa> {
             "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
     },
     }).then(response => response.data);
+}
+
+export function atualizaTarefa(tarefaDto:SalvarTarefaDTO){
+    return axios.patch<SalvarTarefaDTO>('http://localhost:8080/task',tarefaDto,{
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"
+    },
+    }).then(response => response.data);
+
+    
 }

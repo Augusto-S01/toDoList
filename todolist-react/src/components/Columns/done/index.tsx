@@ -36,7 +36,7 @@ function Done({tarefas,atualizaTarefas} : Props) {
             <h1 className={style.doneTitulo}>Done</h1>
 
             {tarefas.map((tarefa) => (
-                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart}/>
+                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas}/>
             ))}
         </div>
     )
