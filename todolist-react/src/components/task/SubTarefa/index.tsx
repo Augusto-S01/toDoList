@@ -20,7 +20,7 @@ interface Props{
 }
 
 export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
-    const [editando, setEditando] = useState<Boolean>(subTarefa.editMode? true : false);
+    const [editando, setEditando] = useState<Boolean>(false);
     const [descricao, setDescricao] = useState<string>(subTarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(subTarefa.deadlineDate));
 

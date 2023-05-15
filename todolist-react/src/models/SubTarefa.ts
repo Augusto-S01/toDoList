@@ -7,5 +7,4 @@ export interface subTarefa {
     deadlineDate : Date;
     finishedDate : Date;
     createDate : Date;
-    editMode? : boolean;
 }
