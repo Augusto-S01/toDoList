@@ -40,22 +40,23 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
         }
 
 
-        if(subTarefa.status === Status.TODO){
+        if(event.target.value === Status.TODO){
+            patchSubTaskToDO(subTarefa,mainId).then(() => {
+                atualizarTarefa();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        if(event.target.value === Status.IN_PROGRESS){
+
             patchSubTaskInProgress(subTarefa,mainId).then(() => {
                 atualizarTarefa();
             }).catch((err) => {
                 console.log(err);
             })
         }
-        if(subTarefa.status === Status.IN_PROGRESS){
-            patchSubTaskDone(subTarefa,mainId).then(() => {
-                atualizarTarefa();
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
         if(subTarefa.status === Status.DONE){
-            patchSubTaskToDO(subTarefa,mainId).then(() => {
+            patchSubTaskDone(subTarefa,mainId).then(() => {
                 atualizarTarefa();
             }).catch((err) => {
                 console.log(err);
