@@ -34,7 +34,6 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
     }
 
     function handlerStatus(event: React.ChangeEvent<HTMLSelectElement>){
-
         if(subTarefa.status === event.target.value){
             return;
         }
@@ -55,7 +54,7 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
                 console.log(err);
             })
         }
-        if(subTarefa.status === Status.DONE){
+        if(event.target.value === Status.DONE){
             patchSubTaskDone(subTarefa,mainId).then(() => {
                 atualizarTarefa();
             }).catch((err) => {
