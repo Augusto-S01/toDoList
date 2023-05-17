@@ -12,18 +12,43 @@ import { Status } from '../../enum/status';
 interface Props{
     tarefas: Tarefa[];
     atualizarTarefas: () => void;
+    
     openSubModal: () => void;
+    openConfirmDelete: () => void;
+    setTarefaAtual: (tarefa: Tarefa | undefined) => void;
     setIdTarefaAtual: (id: number | undefined) => void;
-
+    
 }
 
 
-function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual}: Props) {
+function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual}: Props) {
     return (
         <div className={style.kanban}>
-            <ToDo tarefas={filterTasksByStatus(Status.TODO)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
-            <InProgress tarefas={filterTasksByStatus(Status.IN_PROGRESS)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
-            <Done tarefas={filterTasksByStatus(Status.DONE)} atualizaTarefas={atualizarTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
+            <ToDo 
+                tarefas={filterTasksByStatus(Status.TODO)} 
+                atualizaTarefas={atualizarTarefas} 
+                openSubModal={openSubModal} 
+                setIdTarefaAtual={setIdTarefaAtual}
+                openConfirmDelete={openConfirmDelete}
+                setTarefaAtual={setTarefaAtual}
+                
+            />
+            <InProgress 
+                tarefas={filterTasksByStatus(Status.IN_PROGRESS)} 
+                atualizaTarefas={atualizarTarefas} 
+                openSubModal={openSubModal} 
+                setIdTarefaAtual={setIdTarefaAtual}
+                openConfirmDelete={openConfirmDelete}
+                setTarefaAtual={setTarefaAtual}
+            />
+            <Done 
+                tarefas={filterTasksByStatus(Status.DONE)} 
+                atualizaTarefas={atualizarTarefas} 
+                openSubModal={openSubModal} 
+                setIdTarefaAtual={setIdTarefaAtual}
+                openConfirmDelete={openConfirmDelete}
+                setTarefaAtual={setTarefaAtual}
+            />
         </div>
     );
 

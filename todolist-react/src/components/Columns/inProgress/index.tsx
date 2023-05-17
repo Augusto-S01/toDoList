@@ -10,8 +10,10 @@ interface Props{
     atualizaTarefas: () => void;
     openSubModal: () => void;
     setIdTarefaAtual: (id: number | undefined) => void;
+    openConfirmDelete: () => void;
+    setTarefaAtual: (tarefa: Tarefa | undefined) => void;
 }
-function InProgress( {tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual}: Props) {
+function InProgress( {tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual}: Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
       // Manipule o evento de arrastar aqui, se necessário
@@ -39,7 +41,16 @@ function InProgress( {tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual}: Pr
             <h1 className={style.inProgressTitulo} >in Progress</h1>
 
             {tarefas.map((tarefa) => (
-                <Task key={tarefa.id} tarefa={tarefa} onDragStart={handleDragStart} atualizarTarefa={atualizaTarefas} openSubModal={openSubModal} setIdTarefaAtual={setIdTarefaAtual}/>
+                <Task 
+                  key={tarefa.id} 
+                  tarefa={tarefa} 
+                  onDragStart={handleDragStart} 
+                  atualizarTarefa={atualizaTarefas} 
+                  openSubModal={openSubModal} 
+                  setIdTarefaAtual={setIdTarefaAtual}
+                  openConfirmDelete={openConfirmDelete}
+                  setTarefaAtual={setTarefaAtual}
+                  />
             ))}
         </div>
     )

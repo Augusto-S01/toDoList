@@ -9,5 +9,4 @@ export interface Tarefa {
     finishedDate : Date;
     createDate : Date;
     subTasks : subTarefa[];
-    editMode? : boolean;
 }

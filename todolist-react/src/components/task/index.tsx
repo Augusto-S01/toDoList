@@ -17,10 +17,12 @@ interface Props{
     atualizarTarefa: () => void;
     openSubModal: () => void;
     setIdTarefaAtual: (id: number | undefined) => void;
+    openConfirmDelete: () => void;
+    setTarefaAtual: (tarefa: Tarefa | undefined) => void;
 }
 
-function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual}: Props) {
-    const [editando, setEditando] = useState<Boolean>(tarefa.editMode? true : false);
+function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual}: Props) {
+    const [editando, setEditando] = useState<Boolean>(false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
 
@@ -80,7 +82,7 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual}
             <div className={style.containerBotoes}>
                 {editando &&<Salvar idTarefa={tarefa.id} prazo={prazo} descricao={descricao} setEditar={setEditando} atualizarTarefa={atualizarTarefa}/>}
                 <Editar setEditar={setEditando} editando={editando}/>
-                <Excluir atualizarTarefa={atualizarTarefa} mainId={tarefa.id} />
+                <Excluir atualizarTarefa={atualizarTarefa} mainId={tarefa.id} openConfirmDelete={openConfirmDelete} tarefa={tarefa} setTarefaAtual={setTarefaAtual}/>
                 <AdicionarSubTarefa openSubModal={openSubModal} mainId={tarefa.id} setIdTarefaAtual={setIdTarefaAtual}/>
             </div>
 
