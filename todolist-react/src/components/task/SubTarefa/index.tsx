@@ -64,6 +64,14 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
         }
     }
 
+    const atrasado = () => {
+        if(new Date(subTarefa.deadlineDate) < new Date()){
+            return true;
+        }
+        return false;
+    }
+    
+
 
     return(
         <div className={style.task}>
@@ -94,6 +102,7 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
                 <span className={style.spanType}>Prazo:</span>
                 {!editando && <span className={style.data}>{new Date(subTarefa.deadlineDate).toLocaleDateString("pt-BR")}</span>}
                 {editando && <input type="date" value={prazo} className={style.inputData}   />}
+                {atrasado() && <span className={style.atrasado}>Atrasado</span>}
             </div>
             {subTarefa.finishedDate &&  
             <div className={style.containerData}>

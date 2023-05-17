@@ -48,6 +48,13 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual}
         
 
     }
+
+    const atrasado = () => {
+        if(new Date(tarefa.deadlineDate) < new Date()){
+            return true;
+        }
+        return false;
+    }
     
     
     return(
@@ -63,6 +70,7 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual}
                 <span className={style.spanType}>Prazo:</span>
                 {!editando && <span className={style.data}>{new Date(tarefa.deadlineDate).toLocaleDateString("pt-BR")}</span>}
                 {editando && <input type="date" value={prazo} className={style.inputData}  onChange={handlePrazoChange} />}
+                {atrasado() && <span className={style.atrasado}>Atrasado</span>}
             </div>
             {tarefa.finishedDate &&  
             <div className={style.containerData}>
