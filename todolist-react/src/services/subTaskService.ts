@@ -4,7 +4,7 @@ import { subTarefa } from '../models/subTarefa';
 
 export function patchSubTaskToDO(subTask:subTarefa,mainId:number):Promise<subTarefa> {
 
-    return axios.patch<subTarefa>('http://localhost:8080/subTask',{
+    return axios.patch<subTarefa>('http://127.0.0.1:8000/subTask',{
         idMain: mainId,
         id: subTask.id,
         status: "TO_DO"
@@ -17,7 +17,7 @@ export function patchSubTaskToDO(subTask:subTarefa,mainId:number):Promise<subTar
 }
 
 export function postSubTask(idMain:number,description:string,deadlineDate:Date):Promise<subTarefa> {
-    return axios.post<subTarefa>('http://localhost:8080/subTask',{
+    return axios.post<subTarefa>('http://127.0.0.1:8000/subTask',{
         idMain: idMain,
         description: description,
         deadlineDate: deadlineDate,
@@ -31,7 +31,7 @@ export function postSubTask(idMain:number,description:string,deadlineDate:Date):
 
 export function patchSubTaskInProgress(subTask:subTarefa,mainId:number):Promise<subTarefa> {
     
-        return axios.patch<subTarefa>('http://localhost:8080/subTask',{
+        return axios.patch<subTarefa>('http://127.0.0.1:8000/subTask',{
             idMain: mainId,
             id: subTask.id,
             status: "IN_PROGRESS"
@@ -45,7 +45,7 @@ export function patchSubTaskInProgress(subTask:subTarefa,mainId:number):Promise<
 
 export function patchSubTaskDone(subTask:subTarefa,mainId:number):Promise<subTarefa> {
         
-            return axios.patch<subTarefa>('http://localhost:8080/subTask',{
+            return axios.patch<subTarefa>('http://127.0.0.1:8000/subTask',{
                 idMain: mainId,
                 id: subTask.id,
                 status: "DONE"
@@ -58,7 +58,7 @@ export function patchSubTaskDone(subTask:subTarefa,mainId:number):Promise<subTar
 }
 
 export function deleteSubTask(subId:number,mainId:number) {
-    return axios.delete(`http://localhost:8080/subTask/${mainId}/${subId}`,{
+    return axios.delete(`http://127.0.0.1:8000/subTask/${mainId}/${subId}`,{
         headers: {
             'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"

@@ -10,16 +10,29 @@ services:
       - to-do-project
 
 
-  todolist:
+  todolistapi:
     build:
       context: ./ToDoList
       dockerfile: Dockerfile
     ports:
-      - '6000:8080'
+      - '8000:8080'
     networks:
       - to-do-project
     depends_on:
       - postgres
+
+
+  todolist-app:
+    build:
+      context: ./todolist-react
+      dockerfile: Dockerfile
+    ports:
+      - '3000:80'
+    depends_on:
+      - todolistapi
+    networks:
+      - to-do-project
+    
 
 networks:
   to-do-project:
