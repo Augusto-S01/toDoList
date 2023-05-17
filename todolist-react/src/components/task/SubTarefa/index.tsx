@@ -33,29 +33,55 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
         return dataString;
     }
 
-    function handlerTodoActive(){
-        patchSubTaskToDO(subTarefa,mainId).then(()=>{
-            atualizarTarefa();
-        }  
-        )
-    }
+    function handlerStatus(event: React.ChangeEvent<HTMLSelectElement>){
 
-    function handlerInProgressActive(){
-        patchSubTaskInProgress(subTarefa,mainId).then(()=>{
-            atualizarTarefa();
+        if(subTarefa.status === event.target.value){
+            return;
         }
-        )
-    }
 
-    function handleDoneActive(){
-        patchSubTaskDone(subTarefa,mainId).then(()=>{
-            atualizarTarefa();
+
+        if(subTarefa.status === Status.TODO){
+            patchSubTaskInProgress(subTarefa,mainId).then(() => {
+                atualizarTarefa();
+            }).catch((err) => {
+                console.log(err);
+            })
         }
-        )
-
+        if(subTarefa.status === Status.IN_PROGRESS){
+            patchSubTaskDone(subTarefa,mainId).then(() => {
+                atualizarTarefa();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        if(subTarefa.status === Status.DONE){
+            patchSubTaskToDO(subTarefa,mainId).then(() => {
+                atualizarTarefa();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
     }
+
+
     return(
         <div className={style.task}>
+            <div className={style.containerStatus}>
+                <select name="subStatus" id="subStatus"   className={`${style.selectStatus} ${
+                subTarefa.status === Status.TODO
+                ? style.todo
+                : subTarefa.status === Status.IN_PROGRESS
+                ? style.inProgress
+                : subTarefa.status === Status.DONE
+                ? style.done
+                : ''
+            }`} 
+                onChange={handlerStatus}>
+                    <option value={Status.TODO} selected={subTarefa.status === Status.TODO} className={style.todo} >To Do</option>
+                    <option value={Status.IN_PROGRESS} selected={subTarefa.status === Status.IN_PROGRESS} className={style.inProgress}>In Progress</option>
+                    <option value={Status.DONE} selected={subTarefa.status === Status.DONE} className={style.done}>Done</option>
+                </select>
+            </div>
             <span className={style.spanDescricao}>Descrição:</span>
             {!editando && <p className={style.descricao}>{subTarefa.description}</p>}
             {editando && <input type="text" className={style.inputDescricao} value={descricao}  />}

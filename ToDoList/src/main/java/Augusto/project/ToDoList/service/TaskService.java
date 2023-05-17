@@ -23,9 +23,6 @@ public class TaskService {
 
 	public ResponseEntity<List<Task>> findAll() {
 		List<Task> tasks = taskRepository.findAll();
-		if(tasks.isEmpty()){
-			return ResponseEntity.notFound().build();
-		}
 		return ResponseEntity.ok(tasks);
 	}
 	

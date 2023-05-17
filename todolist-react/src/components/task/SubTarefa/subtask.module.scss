@@ -78,65 +78,44 @@
         }
     }
 
-    .containerStatus{
-        margin-top: 1em;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        align-content: center;
-        padding-left: 0.5em;
-        
-        .spanStatus{
-            vertical-align: middle;
-            text-align: center;
-            height: 2em;
-            font-size: 0.9em;
-            font-family: 'Poppins', sans-serif;
-            line-height: 2em;
-            font-weight: bold;
-        }
-        .todo{
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            width: 3em;
-            background-color:  #C3DBF5;
-            color: #359CF9;
-        }
-        .todoActive{
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            width: 3em;
-            background-color:  #C3DBF5;
-            color: #359CF9;
-            border: 1px solid #359CF9;
-        }
-        .inProgress{
-            width: 6em;
-            background-color: #F5E2C3;
-            color: #F9B335;
-        }
-        .inProgressActive{
-            width: 6em;
-            background-color: #F5E2C3;
-            color: #F9B335;
-            border: 1px solid #F9B335;
-        }
-        .done{
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            width: 3em;
-            background-color: #D1F5E9;
-            color: #2da0788c;
-        }
-        .doneActive{
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            width: 3em;
-            background-color: #D1F5E9;
-            color: #2DA077;
-            border: 1px solid #2DA077;
-        }
-    }
+
 
     
+}
+
+
+.selectStatus{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    padding-left: 0.5em;
+    border: none;
+    border-radius: 0.5em;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    :focus{
+        border:none;
+    }
+    :active{
+        border: none;
+    }
+    
+
+}
+.todo{
+    background-color:  #C3DBF5;
+    color: #359CF9;
+
+}
+
+.inProgress{
+    background-color: #FFE1A6;
+    color: #F7AB26;
+}
+
+.done{
+    background-color: #D1F5E9;
+    color: #2DA077;
 }

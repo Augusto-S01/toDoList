@@ -38,9 +38,7 @@ function App() {
   useEffect(() => {
       getTasks().then((response) => {
           setTarefas(response);
-      }).catch(() => {
-        setTarefas([]);
-      });
+      })
   }, [atualizarTarefas]);
   return (
     
