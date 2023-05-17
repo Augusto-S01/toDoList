@@ -18,11 +18,11 @@ interface Props{
     openSubModal: () => void;
     setIdTarefaAtual: (id: number | undefined) => void;
     openConfirmDelete: () => void;
-    setTarefaAtual: (tarefa: Tarefa | undefined) => void;
+
     deletarTask: (task: Tarefa) => void;
 }
 
-function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual,deletarTask}: Props) {
+function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,openConfirmDelete,deletarTask}: Props) {
     const [editando, setEditando] = useState<Boolean>(false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
@@ -87,7 +87,6 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,
                          mainId={tarefa.id} 
                          openConfirmDelete={openConfirmDelete} 
                          tarefa={tarefa}
-                         setTarefaAtual={setTarefaAtual}
                          deletarTask={deletarTask}/>
                 <AdicionarSubTarefa openSubModal={openSubModal} mainId={tarefa.id} setIdTarefaAtual={setIdTarefaAtual}/>
             </div>

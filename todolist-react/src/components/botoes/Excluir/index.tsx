@@ -10,11 +10,10 @@ interface Props{
     subId?: number;
     openConfirmDelete?: () => void;
     tarefa?: Tarefa | undefined;
-    setTarefaAtual?: (tarefa: Tarefa | undefined) => void;
     deletarTask?: (task: Tarefa) => void;
 }
 
-export default function Excluir({atualizarTarefa,mainId,subId,openConfirmDelete,tarefa,setTarefaAtual,deletarTask}: Props){
+export default function Excluir({atualizarTarefa,mainId,subId,openConfirmDelete,tarefa,deletarTask}: Props){
     return(
         <input type="button" value="Excluir" className={style.excluir} onClick={handleDelete}/> 
     )

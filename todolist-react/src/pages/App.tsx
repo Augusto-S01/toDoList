@@ -13,12 +13,10 @@ import ConfirmDeleteModal from '../components/confirmDeleteModal';
 function App() {
   const [tarefas,setTarefas] = useState<Tarefa[]>([]);
   const [IdTarefaAtual, setIdTarefaAtual] = useState<number | undefined>(undefined);
-  
   const [isModalOpen, setModalOpen] = useState(false);
+  
   const [isSubModalOpen, setSubModalOpen] = useState(false);
   const [isConfirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
-
-  const [tarefaAtual, setTarefaAtual] = useState<Tarefa | undefined>(undefined);
 
   const [tarefaDeletada , setTarefaDeletada] = useState<Tarefa | undefined>(undefined);
 
@@ -67,7 +65,10 @@ function App() {
   useEffect(() => {
       getTasks().then((response) => {
           setTarefas(response);
-      })
+      }).catch((error) => {
+
+      }
+      );
   }, [atualizarTarefas]);
   return (
     
@@ -101,7 +102,6 @@ function App() {
         openSubModal={openSubModal} 
         openConfirmDelete={openConfirmDeleteModal} 
         setIdTarefaAtual={setIdTarefaAtual}
-        setTarefaAtual={setTarefaAtual}
         deletarTask={deletarTask}
       />
 

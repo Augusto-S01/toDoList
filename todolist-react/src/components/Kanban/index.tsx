@@ -15,13 +15,12 @@ interface Props{
     
     openSubModal: () => void;
     openConfirmDelete: () => void;
-    setTarefaAtual: (tarefa: Tarefa | undefined) => void;
     setIdTarefaAtual: (id: number | undefined) => void;
     deletarTask: (tarefa: Tarefa) => void;
 }
 
 
-function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual,deletarTask}: Props) {
+function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,deletarTask}: Props) {
     return (
         <div className={style.kanban}>
             <ToDo 
@@ -30,7 +29,6 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 openSubModal={openSubModal} 
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
-                setTarefaAtual={setTarefaAtual}
                 deletarTask={deletarTask}
                 
             />
@@ -40,7 +38,6 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 openSubModal={openSubModal} 
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
-                setTarefaAtual={setTarefaAtual}
                 deletarTask={deletarTask}
             />
             <Done 
@@ -49,7 +46,6 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 openSubModal={openSubModal} 
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
-                setTarefaAtual={setTarefaAtual}
                 deletarTask={deletarTask}
             />
         </div>
