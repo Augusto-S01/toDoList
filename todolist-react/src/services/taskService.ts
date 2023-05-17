@@ -18,7 +18,7 @@ export function getTasks(): Promise<Tarefa[]> {
 
 
 export function postTask(tarefaDto:SalvarTarefaDTO){
-    return axios.post<SalvarTarefaDTO>('http://127.0.0.1:8000/task',tarefaDto,{
+    return axios.post<Tarefa>('http://127.0.0.1:8000/task',tarefaDto,{
         headers: {
             'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-header": "Origin, X-Requested-With, Content-Type, Accept"

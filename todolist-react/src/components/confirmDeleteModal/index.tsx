@@ -9,11 +9,14 @@ import { deleteTask } from '../../services/taskService';
 interface ModalProps{
     onClose: () => void;
     isOpen: boolean;
-    atualizarTarefa: () => void;
-    tarefaAtual?: Tarefa | undefined;
+    tarefaDeletada: Tarefa | undefined;
+    
+    tarefas : Tarefa[];
+    setTarefas: (tarefas: Tarefa[]) => void;
+
 }
 
-export default function ConfirmDeleteModal({onClose,isOpen,atualizarTarefa,tarefaAtual}: ModalProps){
+export default function ConfirmDeleteModal({onClose,isOpen,tarefaDeletada,tarefas,setTarefas}: ModalProps){
 
 
         React.useEffect(() => {
@@ -34,15 +37,15 @@ export default function ConfirmDeleteModal({onClose,isOpen,atualizarTarefa,taref
         }
 
         function handlerDelete(){
-            if(tarefaAtual){
-                deleteTask(tarefaAtual?.id).then(() => {
-                    atualizarTarefa();
+            if(tarefaDeletada){
+                deleteTask(tarefaDeletada.id).then(() => {
+                    setTarefas(tarefas.filter((tarefa) => tarefa.id !== tarefaDeletada.id));
                 });
                 onClose();
 
             }
         }
-
+       
 
         if(!isOpen){
             return null;

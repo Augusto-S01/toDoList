@@ -3,14 +3,17 @@ import React from 'react';
 import style from './modal.module.scss';
 import SalvarTarefaDTO from '../../models/salvarTarefaDTO';
 import { postTask } from '../../services/taskService';
+import { Tarefa } from '../../models/Tarefa';
 
 interface ModalProps{
     onClose: () => void;
     isOpen: boolean;
     atualizarTarefa: () => void;
+    setTarefas: (tarefas : Tarefa[]) => void;
+    tarefas : Tarefa[];
 }
 
-export default function Modal({onClose,isOpen,atualizarTarefa}: ModalProps){
+export default function Modal({onClose,isOpen,setTarefas,tarefas}: ModalProps){
     const [description, setDescription] = React.useState('');
     const [deadlineDate, setDeadlineDate] = React.useState('');
 
@@ -39,11 +42,23 @@ export default function Modal({onClose,isOpen,atualizarTarefa}: ModalProps){
                 description: description,
                 deadlineDate: new Date(deadlineDate)
             }
-            postTask(task).then(() => {
+            postTask(task).then((response) => {
                 setDescription('');
                 setDeadlineDate('');
                 onClose();
-                atualizarTarefa();
+                if(response.id){
+                    const tarefa: Tarefa = {
+                        id: response.id,
+                        description: response.description,
+                        deadlineDate: response.deadlineDate,
+                        finishedDate: response.finishedDate,
+                        createDate: response.createDate,
+                        status: response.status,
+                        subTasks: response.subTasks
+                    }
+                    console.log(tarefa)
+                    setTarefas([...tarefas, tarefa]);
+                }
             })
         }
 

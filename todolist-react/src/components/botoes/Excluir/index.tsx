@@ -11,35 +11,22 @@ interface Props{
     openConfirmDelete?: () => void;
     tarefa?: Tarefa | undefined;
     setTarefaAtual?: (tarefa: Tarefa | undefined) => void;
+    deletarTask?: (task: Tarefa) => void;
 }
 
-export default function Excluir({atualizarTarefa,mainId,subId,openConfirmDelete,tarefa,setTarefaAtual}: Props){
+export default function Excluir({atualizarTarefa,mainId,subId,openConfirmDelete,tarefa,setTarefaAtual,deletarTask}: Props){
     return(
         <input type="button" value="Excluir" className={style.excluir} onClick={handleDelete}/> 
     )
     function handleDelete(){
-        if(setTarefaAtual){
-            setTarefaAtual(tarefa);
-        }
-        if(tarefa){
-            if(tarefa.subTasks.length > 0){
-                if(openConfirmDelete){
-                    openConfirmDelete();
-                }
-        }else{
-            deleteTask(mainId).then(() => {
-                atualizarTarefa();
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
+       if(tarefa){
+        deletarTask!(tarefa);
+       }else{
         if(subId){
-            deleteSubTask(mainId,subId).then(() => {
+            deleteSubTask(subId,mainId).then(() => {
                 atualizarTarefa();
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
+            });
+       }
     }
 
  

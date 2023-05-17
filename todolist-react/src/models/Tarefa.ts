@@ -6,7 +6,8 @@ export interface Tarefa {
     description: string;
     status: Status;
     deadlineDate : Date;
-    finishedDate : Date;
+    finishedDate? : Date;
     createDate : Date;
-    subTasks : subTarefa[];
+    subTasks? : subTarefa[];
+
 }

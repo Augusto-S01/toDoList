@@ -17,11 +17,11 @@ interface Props{
     openConfirmDelete: () => void;
     setTarefaAtual: (tarefa: Tarefa | undefined) => void;
     setIdTarefaAtual: (id: number | undefined) => void;
-    
+    deletarTask: (tarefa: Tarefa) => void;
 }
 
 
-function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual}: Props) {
+function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual,deletarTask}: Props) {
     return (
         <div className={style.kanban}>
             <ToDo 
@@ -31,6 +31,7 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
                 setTarefaAtual={setTarefaAtual}
+                deletarTask={deletarTask}
                 
             />
             <InProgress 
@@ -40,6 +41,7 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
                 setTarefaAtual={setTarefaAtual}
+                deletarTask={deletarTask}
             />
             <Done 
                 tarefas={filterTasksByStatus(Status.DONE)} 
@@ -48,6 +50,7 @@ function Kanban({atualizarTarefas,tarefas,openSubModal,setIdTarefaAtual,openConf
                 setIdTarefaAtual={setIdTarefaAtual}
                 openConfirmDelete={openConfirmDelete}
                 setTarefaAtual={setTarefaAtual}
+                deletarTask={deletarTask}
             />
         </div>
     );

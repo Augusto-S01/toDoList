@@ -10,9 +10,10 @@ interface Props{
     setIdTarefaAtual: (id: number | undefined) => void;
     openConfirmDelete: () => void;
     setTarefaAtual: (tarefa: Tarefa | undefined) => void;
+    deletarTask: (task: Tarefa ) => void;
 }
 
-function Done({tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual} : Props) {
+function Done({tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual,openConfirmDelete,setTarefaAtual,deletarTask} : Props) {
 
     const handleDragStart = (tarefa: Tarefa) => {
         // Manipule o evento de arrastar aqui, se necessário
@@ -49,6 +50,7 @@ function Done({tarefas,atualizaTarefas,openSubModal,setIdTarefaAtual,openConfirm
                   setIdTarefaAtual={setIdTarefaAtual}
                   openConfirmDelete={openConfirmDelete}
                   setTarefaAtual={setTarefaAtual}
+                  deletarTask={deletarTask}
                   />
             ))}
         </div>

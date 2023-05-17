@@ -5,15 +5,12 @@ import { Tarefa } from '../../../models/Tarefa';
 import { Status } from '../../../enum/status';
 
 interface Props{
-    atualizarTarefas: () => void;
-    tarefas : Tarefa[];
-    setTarefas: (tarefas: Tarefa[]) => void;
     openModal: () => void;
 }
 
 
 
-function NewTask({atualizarTarefas,tarefas,setTarefas,openModal}: Props){
+function NewTask({openModal}: Props){
 
     const handlerNovaTarefa = () => {
         openModal();

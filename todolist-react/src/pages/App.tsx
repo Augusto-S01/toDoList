@@ -5,7 +5,7 @@ import Kanban from '../components/Kanban';
 
 import { Tarefa } from '../models/Tarefa';
 import { useEffect, useState } from 'react';
-import { atualizaTarefa, getTasks } from '../services/taskService';
+import { atualizaTarefa, deleteTask, getTasks } from '../services/taskService';
 import Modal from '../components/Modal';
 import SubModal from '../components/SubModal';
 import ConfirmDeleteModal from '../components/confirmDeleteModal';
@@ -20,6 +20,7 @@ function App() {
 
   const [tarefaAtual, setTarefaAtual] = useState<Tarefa | undefined>(undefined);
 
+  const [tarefaDeletada , setTarefaDeletada] = useState<Tarefa | undefined>(undefined);
 
   const openModal = () => {
     setModalOpen(true);
@@ -44,7 +45,22 @@ function App() {
     setConfirmDeleteModalOpen(false);
   };
 
+  function deletarTarefa(tarefa : Tarefa){
+    setTarefaDeletada(tarefa);
+    openConfirmDeleteModal();
+  }
 
+
+  function deletarTask(task: Tarefa){
+    if(task.subTasks!.length > 0){
+      setTarefaDeletada(task);
+      openConfirmDeleteModal();
+    }else{
+      deleteTask(task.id).then((response) => {
+        setTarefas(tarefas.filter((tarefa) => tarefa.id !== task.id));
+      });
+    }
+  }
     
   function atualizarTarefas(){}
 
@@ -59,6 +75,8 @@ function App() {
       <Modal 
         onClose={closeModal} 
         isOpen={isModalOpen} 
+        setTarefas={setTarefas}
+        tarefas={tarefas}
         atualizarTarefa={atualizarTarefas} 
       />
       <SubModal 
@@ -70,13 +88,11 @@ function App() {
       <ConfirmDeleteModal 
         onClose={closeConfirmDeleteModal}  
         isOpen={isConfirmDeleteModalOpen}  
-        atualizarTarefa={atualizarTarefas}   
-        tarefaAtual={tarefaAtual}
+        tarefas={tarefas}
+        setTarefas={setTarefas}  
+        tarefaDeletada={tarefaDeletada}
       />
       <Header 
-        atualizarTarefas={atualizarTarefas} 
-        tarefas={tarefas} 
-        setTarefas={setTarefas} 
         openModal={openModal}
       />
       <Kanban 
@@ -86,6 +102,7 @@ function App() {
         openConfirmDelete={openConfirmDeleteModal} 
         setIdTarefaAtual={setIdTarefaAtual}
         setTarefaAtual={setTarefaAtual}
+        deletarTask={deletarTask}
       />
 
     </div>
