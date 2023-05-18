@@ -9,9 +9,8 @@ import Salvar from '../../botoes/salvar';
 import Editar from '../../botoes/editar';
 import Excluir from '../../botoes/Excluir';
 import { Status } from '../../../enum/status';
-import { patchSubTaskDone, patchSubTaskToDO } from '../../../services/subTaskService';
-import { patchInProgress } from '../../../services/taskService';
-import { patchSubTaskInProgress } from '../../../services/subTaskService';
+import { patchSubTaskDone, patchSubTaskToDO , patchSubTaskInProgress} from '../../../services/subTaskService';
+import { useEffect } from 'react';
 
 interface Props{
     subTarefa: subTarefa;
@@ -23,6 +22,7 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
     const [editando, setEditando] = useState<Boolean>(false);
     const [descricao, setDescricao] = useState<string>(subTarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(subTarefa.deadlineDate));
+    const [atrasado, setAtrasado] = useState<Boolean>(false);
 
     function dataParaString(date:Date){
         const data = new Date(date);
@@ -32,6 +32,10 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
         const dataString:string = ano+"-"+mes+"-"+dia;
         return dataString;
     }
+
+    function handlePrazoChange(event: React.ChangeEvent<HTMLInputElement>){
+        setPrazo(event.target.value);
+    };
 
     function handlerStatus(event: React.ChangeEvent<HTMLSelectElement>){
         if(subTarefa.status === event.target.value){
@@ -63,12 +67,20 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
         }
     }
 
-    const atrasado = () => {
-        if(new Date(subTarefa.deadlineDate) < new Date()){
-            return true;
+    useEffect(() => {
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0); 
+        const dataPrazo = new Date(prazo);
+        dataPrazo.setHours(0, 0, 0, 0); 
+      
+        if (dataPrazo.getTime() < hoje.getTime()) {
+          setAtrasado(true);
+        } else {
+          setAtrasado(false);
         }
-        return false;
-    }
+    }, [prazo])
+
+
     
 
 
@@ -100,8 +112,8 @@ export default function SubTarefa({subTarefa,atualizarTarefa,mainId}: Props){
             <div className={style.containerData}>
                 <span className={style.spanType}>Prazo:</span>
                 {!editando && <span className={style.data}>{new Date(subTarefa.deadlineDate).toLocaleDateString("pt-BR")}</span>}
-                {editando && <input type="date" value={prazo} className={style.inputData}   />}
-                {atrasado() && <span className={style.atrasado}>Atrasado</span>}
+                {editando && <input type="date" value={prazo} className={style.inputData}  onChange={handlePrazoChange} />}
+                {atrasado && <span className={style.atrasado}>Atrasado</span>}
             </div>
             {subTarefa.finishedDate &&  
             <div className={style.containerData}>

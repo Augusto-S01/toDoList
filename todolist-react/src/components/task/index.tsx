@@ -1,5 +1,5 @@
 import style from "./task.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Tarefa } from "../../models/Tarefa";
 import  AdicionarSubTarefa  from "../botoes/AdicionarSubTarefa"
@@ -26,6 +26,7 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,
     const [editando, setEditando] = useState<Boolean>(false);
     const [descricao, setDescricao] = useState<string>(tarefa.description);
     const [prazo, setPrazo] = useState<string>(dataParaString(tarefa.deadlineDate));
+    const [atrasado, setAtrasado] = useState<Boolean>(false);
 
 
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
@@ -52,12 +53,19 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,
 
     }
 
-    const atrasado = () => {
-        if(new Date(tarefa.deadlineDate) < new Date()){
-            return true;
+    useEffect(() => {
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0); 
+        const dataPrazo = new Date(prazo);
+        dataPrazo.setHours(0, 0, 0, 0); 
+      
+        if (dataPrazo.getTime() < hoje.getTime()) {
+          setAtrasado(true);
+        } else {
+          setAtrasado(false);
         }
-        return false;
-    }
+    }, [prazo])
+    
     
     
     return(
@@ -73,7 +81,7 @@ function Task({tarefa,onDragStart,atualizarTarefa,openSubModal,setIdTarefaAtual,
                 <span className={style.spanType}>Prazo:</span>
                 {!editando && <span className={style.data}>{new Date(tarefa.deadlineDate).toLocaleDateString("pt-BR")}</span>}
                 {editando && <input type="date" value={prazo} className={style.inputData}  onChange={handlePrazoChange} />}
-                {atrasado() && <span className={style.atrasado}>Atrasado</span>}
+                {atrasado && <span className={style.atrasado}>Atrasado</span>}
             </div>
             {tarefa.finishedDate &&  
             <div className={style.containerData}>
